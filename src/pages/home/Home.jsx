@@ -17,7 +17,7 @@ export const Home = () => {
     const [senha, setSenha] = useState("");
 
     const [funcoes, setFuncoes] = useState([])
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
 
     //const [loading, setLoading] = useState(false)
 
@@ -54,6 +54,12 @@ export const Home = () => {
         //console.log(isAuthenticated)
         if(!!isAuthenticated) {
           toast.success("Login realizado com sucesso!")
+          if (id_funcao === 'ecc118a1-48ed-4000-a0f9-2a7b98786771')  {
+             navigate('/menu_secretario');
+            }
+          else {
+            navigate('/menu_user');
+          }
         } else {
           toast.error("Função, Nome ou senha inválidos!")
         } 
@@ -65,8 +71,6 @@ export const Home = () => {
     },[])
 
 
-
-if(!isAuthenticated) {
     return (
         <>
          <div className="flex justify-center gap-7 pt-2">
@@ -121,16 +125,4 @@ if(!isAuthenticated) {
         
         </>
     )
-  }  else {
-    if (id_funcao === 'ecc118a1-48ed-4000-a0f9-2a7b98786771') 
-      return (<>
-       <Navigate to={'/menu_secretario'} />
-      </>
-      ) 
-    else return (
-      <> 
-      <Navigate to={'/menu_user'} /> 
-      </>
-    )
-  }
 }

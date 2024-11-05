@@ -15,16 +15,18 @@ export function signOut(){
         
     }catch{
         console.log('erro ao deslogar')
+        setUser('')
     }
 }
 
 
 export function AuthProvider({children}){
 
-
+    //const navigate = useNavigate();
     const [user, setUser] = useState()
     const [classes, setClasses] = useState('')
     const isAuthenticated =  !!user;
+    
 
     //const [loading, setLoading] = useState(false)
     function guardarClasse(id_classe){
@@ -60,6 +62,8 @@ export function AuthProvider({children}){
              
             //Passar para proximas requisições o nosso token
             api.defaults.headers['Authorization'] = `Bearer ${token}`;
+
+
               
 
         } catch (error) {

@@ -47,11 +47,20 @@ export const Revista = () => {
  
     }
 
+    
+    const handleNavigate = () => {
+        navigate(-1)
+    }
+
     return (
         <>
         <div className="flex justify-center gap-7 pt-2">
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Revista</h1>
         </div>
+        <div >
+    <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+    onClick={handleNavigate}>Voltar</button>
+    </div>
         <form className="max-w-sm mx-auto" onSubmit={handleRevista}>
             <div className="mb-5">
             <label htmlFor="oferta" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Quantidade de Revista</label>
