@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
-import { AuthContext } from "../../autenticacao/AuthProvider"
+import { AuthContext } from "../../../autenticacao/AuthProvider"
 import { useNavigate } from "react-router-dom"
 import { Navigate } from "react-router-dom"
-import { api } from "../../services/apiClient"
+import { api } from "../../../services/apiClient"
 import { useEffect } from "react"
 
 export const AlterarDadosAlunosProf = () => {

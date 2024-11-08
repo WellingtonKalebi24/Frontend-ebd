@@ -14,7 +14,10 @@ import { Usuario } from "./pages/login";
 import { MenuAlterarErro } from "./pages/menu_alterar_erro/MenuAlterarErro";
 import { AlterarBiblia } from "./pages/alterar/alterar_biblia/AlterarBiblia";
 import { Revista } from "./pages/revista/Revista";
-import { AlterarDadosAlunosProf } from "./pages/alterar_dados_aluno_prof";
+import { AlterarDadosAlunosProf } from "./pages/alterar/alterar_dados_aluno_prof";
+import { AlterarOferta } from "./pages/alterar/alterar_oferta";
+import { AlterarVisita } from "./pages/alterar/alterar_visita";
+import { AlterarRevista } from "./pages/alterar/alterar_revista";
 
 const router = createBrowserRouter([
     {
@@ -81,6 +84,17 @@ const router = createBrowserRouter([
     {
         path: "/alterar/dados/alunos_professores",
         element: <AlterarDadosAlunosProf />
+    }, {
+           path: "/alterar_oferta/:idescola",
+           element: <AlterarOferta /> 
+    },
+    {
+        path: "/alterar_visita/:idescola",
+        element: <AlterarVisita />
+    },
+    {
+        path: "/alterar_revista/:idescola",
+        element: <AlterarRevista />
     }
     
 

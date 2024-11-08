@@ -43,6 +43,7 @@ export const MenuAlterarErro = () => {
         <div className="mb-5">
               <select value={id_classe} onChange={(e) => setIdClasse(e.target.value)}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option value="" disabled selected> Selecione Uma opção</option>
               {classes.map((classes) => {
                 return (
                   <option id="classes" value={classes.id} key={classes.id} >{classes.classes}</option>
@@ -50,15 +51,15 @@ export const MenuAlterarErro = () => {
               })}
               </select>
             </div>
-        <Link to="/alterar_presenca/" className="block max-w-sm p-6 bg-amber-300 border border-gray-200 rounded-lg shadow-md hover:bg-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <Link to={"/alterar_presenca/"+id_classe} className="block max-w-sm p-6 bg-amber-300 border border-gray-200 rounded-lg shadow-md hover:bg-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <h5 className="flex justify-center mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">Presença</h5></Link>
-            <Link to="/alterar_oferta" className="mt-8 block max-w-sm p-6 bg-amber-300 border border-gray-200 rounded-lg shadow-md hover:bg-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <Link to={"/alterar_oferta/"+id_classe} className="mt-8 block max-w-sm p-6 bg-amber-300 border border-gray-200 rounded-lg shadow-md hover:bg-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <h5 className="flex justify-center mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">Oferta</h5></Link>
-            <Link to="/alterar_visita" className="mt-8 block max-w-sm p-6 bg-amber-300 border border-gray-200 rounded-lg shadow-md hover:bg-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <Link to={"/alterar_visita/"+id_classe} className="mt-8 block max-w-sm p-6 bg-amber-300 border border-gray-200 rounded-lg shadow-md hover:bg-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <h5 className="flex justify-center mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">Visitante</h5></Link>  
             <Link to={"/alterar_biblia/"+id_classe}  className="mt-8 block max-w-sm p-6 bg-amber-300 border border-gray-200 rounded-lg shadow-md hover:bg-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <h5 className="flex justify-center mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">Bíblia</h5></Link>    
-            <Link to="/alterar_biblia" className="mt-8 block max-w-sm p-6 bg-amber-300 border border-gray-200 rounded-lg shadow-md hover:bg-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <Link to={"/alterar_revista/"+id_classe} className="mt-8 block max-w-sm p-6 bg-amber-300 border border-gray-200 rounded-lg shadow-md hover:bg-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <h5 className="flex justify-center mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">Revista</h5></Link>    
                
         </div>

@@ -9,14 +9,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export const AlterarBiblia = () => {
+export const AlterarOferta = () => {
     const { isAuthenticated,} = useContext(AuthContext)
 
-    const [biblia,setBiblia] = useState('');
-    const [listbiblia, setListBiblia] = useState([])
+    const [oferta,setOferta] = useState('');
+    const [listoferta, setListOferta] = useState([])
     
 
-    const [idBiblia, setIdBiblia] = useState('')
+    const [idOferta, setIdOferta] = useState('')
     
     const [dataAtual, setDataAtual] = useState('')
     const [NomeBotao, setNomeBotao] = useState('Salvar')
@@ -33,13 +33,13 @@ export const AlterarBiblia = () => {
 
        
 
-       async function handleBiblia(e){
+       async function handleOferta(e){
         e.preventDefault();
 
             setNomeBotao('Alterando...')
-            let id = idBiblia
+            let id = idOferta
 
-            let nr_biblia = parseInt(biblia)
+            let nr_oferta = parseFloat(oferta)
     
             let id_classe = idescola;
     
@@ -50,14 +50,14 @@ export const AlterarBiblia = () => {
     
             let data = {
                 id,
-                nr_biblia,
+                nr_oferta,
                 id_classe,
                 update_at
             }
 
             //console.log(data)
 
-            await api.put('/biblia/send', data)
+            await api.put('/oferta/send', data)
             .then((response) => {
                 toast.success("Alterado com sucesso!")
                 //console.log('salvo com sucesso!')
@@ -77,23 +77,23 @@ export const AlterarBiblia = () => {
  
     }
 
-    const getBiblia = async () => {
+    const getOferta = async () => {
 
 
 
         try {
             
 
-            const bibliaList = await api.post('/biblia/list', {"id_classe": idescola,});
+            const ofertaList = await api.post('/oferta/list', {"id_classe": idescola,});
   
             //console.log(bibliaList.data);
             
 
-            setListBiblia(bibliaList.data)
+            setListOferta(ofertaList.data)
             //console.log(idescola)
             //console.log(bibliaList.data[0].id)
             //console.log(idescola)
-            setIdBiblia(bibliaList.data[0].id)
+            setIdOferta(ofertaList.data[0].id)
             
         } catch (error) {
             console.log("erro ao funções", error)
@@ -106,7 +106,7 @@ export const AlterarBiblia = () => {
 
 
     useEffect(() => {
-        getBiblia()
+        getOferta()
 
         const now = new Date();
         const year = now.getFullYear();
@@ -122,28 +122,28 @@ export const AlterarBiblia = () => {
     return (
         <>
         <div className="flex justify-center gap-7 pt-2">
-        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Bíblia</h1>
+        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Oferta</h1>
         </div>
-        <form className="max-w-sm mx-auto" onSubmit={handleBiblia}>
+        <form className="max-w-sm mx-auto" onSubmit={handleOferta}>
         
-        {listbiblia.map((listbiblia) => { 
+        {listoferta.map((listoferta) => { 
                 return ( 
                     <div className="mb-5">
-                        <p className="pb-8 font-bold ">Feito pela sala: {listbiblia.classes}, Valor: {listbiblia.nr_biblia}</p>
+                        <p className="pb-8 font-bold ">Feito pela sala: {listoferta.classes}, Valor: {listoferta.nr_oferta}</p>
                         <label htmlFor="classe" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Classe</label> 
-                    <select value={idBiblia} onChange={(e) => setIdBiblia(e.target.value)}
+                    <select value={idOferta} onChange={(e) => setIdOferta(e.target.value)}
                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                      >
-                         <option id="classes" value={listbiblia.id} key={listbiblia.id} >{listbiblia.classes}</option>
+                         <option id="classes" value={listoferta.id} key={listoferta.id} >{listoferta.classes}</option>
                     </select> 
-                    <label htmlFor="biblia" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Alterar Quantidade de Bíblia</label> 
+                    <label htmlFor="biblia" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Alterar Quantidade de Oferta</label> 
                     <input
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Digite número de biblias" 
                         id="biblia"
                         type="number"
-                        value={biblia}
-                        onChange={(e) => setBiblia(e.target.value)}
+                        value={oferta}
+                        onChange={(e) => setOferta(e.target.value)}
                       />
                 <label htmlFor="dataatual" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Data Atual</label> 
                <input
