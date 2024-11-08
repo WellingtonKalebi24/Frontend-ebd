@@ -14,6 +14,7 @@ import { Usuario } from "./pages/login";
 import { MenuAlterarErro } from "./pages/menu_alterar_erro/MenuAlterarErro";
 import { AlterarBiblia } from "./pages/alterar/alterar_biblia/AlterarBiblia";
 import { Revista } from "./pages/revista/Revista";
+import { AlterarDadosAlunosProf } from "./pages/alterar_dados_aluno_prof";
 
 const router = createBrowserRouter([
     {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
     {
         path: "/alterar_biblia/:idescola",
         element: <AlterarBiblia />
+    }, 
+    {
+        path: "/alterar/dados/alunos_professores",
+        element: <AlterarDadosAlunosProf />
     }
     
 
