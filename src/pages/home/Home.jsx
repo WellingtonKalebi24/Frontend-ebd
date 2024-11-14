@@ -54,7 +54,7 @@ export const Home = () => {
         //console.log(isAuthenticated)
         if(!!isAuthenticated) {
           toast.success("Login realizado com sucesso!")
-          if (id_funcao === 'ecc118a1-48ed-4000-a0f9-2a7b98786771')  {
+          if (id_funcao === '5865f887-914c-47ed-922f-242e308771e6')  {
              navigate('/menu_secretario');
             }
           else {

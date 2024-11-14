@@ -50,7 +50,6 @@ export const CadAlunoProfessor = () => {
             //const { id , funcoes } = responseFunc.data;
             setClasse(responseClasse.data)
   
-  
         } catch (error) {
             console.log("erro ao funções", error)
         }
@@ -72,8 +71,11 @@ export const CadAlunoProfessor = () => {
             id_classe,
             ativo
         }
+        //console.log(data)
+
         await api.post('/alunoProfessores', data)
                         .then((response) => {
+                         
                             setNmpessoa('')
                             setDataNascimento('')
                             //console.log('salvo com sucesso!')
@@ -132,6 +134,7 @@ export const CadAlunoProfessor = () => {
               <label htmlFor="funcao" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Função:</label>
               <select value={id_funcao} onChange={(e) => setIdfuncao(e.target.value)}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option value="" disabled selected> Selecione Uma opção</option>
               {funcoes.map((funcoes) => {
                 return (
                   <option id="funcoes" value={funcoes.id} key={funcoes.id} >{funcoes.funcoes}</option>
@@ -143,6 +146,7 @@ export const CadAlunoProfessor = () => {
               <label htmlFor="classes" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Classe:</label>
               <select value={id_classe} onChange={(e) => setIdClasse(e.target.value)}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option value="" disabled selected> Selecione Uma opção</option>
               {classes.map((classes) => {
                 return (
                   <option id="classes" value={classes.id} key={classes.id} >{classes.classes}</option>
