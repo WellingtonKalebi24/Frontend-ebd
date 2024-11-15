@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { Navigate } from "react-router-dom"
 import { api } from "../../../services/apiClient"
 import { useEffect } from "react"
+import { toast, ToastContainer } from "react-toastify"
 
 
 export const AlterarDadosAlunosProf = () => {
@@ -30,6 +31,8 @@ export const AlterarDadosAlunosProf = () => {
         ativo: '',
         funcao: '',
     })
+
+
 
     const navigate = useNavigate();
 
@@ -94,7 +97,7 @@ export const AlterarDadosAlunosProf = () => {
             //const { id , funcoes } = responseFunc.data;1
             //setClasse(responseClasse.data)
             setListAlunoProf(responseAlunoProf.data)
-            setItems(responseAlunoProf.data)
+            //setItems(responseAlunoProf.data)
             //console.log(responseAlunoProf.data)
   
   
@@ -140,6 +143,18 @@ export const AlterarDadosAlunosProf = () => {
   }
 
 
+  const formatDateTime = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
+
     useEffect(() => {
         funcao()
         classe()
@@ -149,8 +164,51 @@ export const AlterarDadosAlunosProf = () => {
       const valueInput = (e) => setData({...data, [e.target.name]: e.target.value})
 
 
-      const AlterarAlunoProfessor = () => {
-        console.log(data)
+      const AlterarAlunoProfessor = async() => {
+
+        let ativos
+
+        let dataAtual = formatDateTime()
+
+        let datanascimento = data.dt_nascimento + ":05.729Z"
+
+         if(data.ativo === true){
+          ativos = true;
+         }else {
+          ativos = false;
+         }
+
+
+        try {
+          const responseAltAlunoProf = await api.put('/alunoProfessores/send',
+            { "id": data.id, 
+              "nm_pessoa": data.nm_pessoa,
+               "dt_nascimento": datanascimento, 
+               "id_funcao": data.id_funcao,
+                "id_classe": data.id_classe,
+                "update_at": dataAtual,
+                "ativo": ativos}
+          ).then(() => {
+            toast.success('Alterado com sucesso!')
+            
+            //setLoading(true)
+            
+          }).catch(() => {
+            toast.error('Erro ao Alterar!')
+          }) 
+
+          
+
+      } catch (error) {
+        
+          console.log("erro ao funções", error)
+
+      }
+
+
+
+
+
       }
 
     return (
@@ -233,10 +291,10 @@ export const AlterarDadosAlunosProf = () => {
                 } type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Alterar</button>
                 </th>
             </tr>
-            <dialog id="my_modal_3" className="modal">
-  <div className="modal-box">
-    <form method="dialog" onSubmit={AlterarAlunoProfessor}>
-    <div className="mb-5">
+   <dialog id="my_modal_3" className="modal relative p-4 w-full max-w-md max-h-full">
+  <div className="relative p-4 w-full max-w-md max-h-full">
+    <form method="dialog" onSubmit={AlterarAlunoProfessor} >
+    <div className="mb-4">
             <label htmlFor="nm_pessoa" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Nome</label>
             <input
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -247,57 +305,79 @@ export const AlterarDadosAlunosProf = () => {
                 value={data.nm_pessoa}
                 onChange={valueInput}
               />
-            <label htmlFor="data" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Data de Nascimento</label>
+            <label htmlFor="dt_nascimento" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Data de Nascimento</label>
             <input
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Digite a data"
                 id="data"
                 type="datetime-local"
+                name="dt_nascimento"
                 value={data.dt_nascimento}
                 //onChange={(e) => setDataNascimento(e.target.value)}
               />
              <div className="mb-5">
-              <label htmlFor="funcao" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Função:</label>
-              <select value={data.id_funcao} //onChange={(e) => setIdfuncao(e.target.value)}
+              <label htmlFor="funcao" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Função:</label>
+              <select value={data.id_funcao} //onChange={(e) => setIdfuncao(e.target.value)} 
+              name="id_funcao"
+              onChange={valueInput}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="" disabled selected> Selecione Uma opção</option>
               {funcoes.map((funcoes) => {
                 return (
-                  <option id="funcoes" value={funcoes.id} key={funcoes.id} >{funcoes.funcoes}</option>
+                  <option name="id_funcao"
+                  onChange={valueInput}
+                  id="funcoes" value={funcoes.id} key={funcoes.id} >{funcoes.funcoes}</option>
                 )
               })}
               </select>
             </div>
             <div className="mb-5">
-              <label htmlFor="classes" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Classe:</label>
+              <label htmlFor="classes" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Classe:</label>
               <select value={data.id_classe} //onChange={(e) => setIdClasse(e.target.value)}
+               name="id_classe"
+               onChange={valueInput}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option value="" disabled selected> Selecione Uma opção</option>
               {classes.map((classes) => {
                 return (
-                  <option id="classes" value={classes.id} key={classes.id} >{classes.classes}</option>
+                  
+                  <option id="classes" 
+                  name="id_classe"
+                  onChange={valueInput}
+                  value={classes.id} key={classes.id} >{classes.classes}</option>
                 )
               })}
               </select>
             </div>
         </div>
-        <label htmlFor="ativo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Nome</label>
-            <input
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Digite o nome completo"
-                id="ativo"
-                type="text"
-                value={data.ativo ? 'Ativo' : 'Inativo'}
-                //onChange={(e) => data.nm_pessoa}
-              />
+        <label htmlFor="ativo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Ativo</label>
+               <div className="mb-5">
+              <select value={data.ativo} //onChange={(e) => setIdClasse(e.target.value)}
+               name="ativo"
+               onChange={valueInput}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="" disabled selected> Selecione Uma opção</option>
+                <option id="ativo" 
+                  name="ativo"
+                  //value={data.ativo}
+                  onChange={valueInput}
+                   value={true} 
+                   >Ativo</option>
+               <option id="ativo" 
+                  name="ativo"
+                  //value={data.ativo}
+                 onChange={valueInput}
+                   value={false} 
+                   >Inativo</option>
+              </select>
+              {/* <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button> */}
+            </div>
             <button type="submit"
             className="text-white bg-slate-500 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800" 
             >Salvar</button>
   
-      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      
     </form>
-    <h3 className="font-bold text-lg">Hello!</h3>
-    <p className="py-4">Press ESC key or click on ✕ button to close</p>
   </div>
 </dialog>
 
@@ -311,7 +391,7 @@ export const AlterarDadosAlunosProf = () => {
         </tbody>
     </table>
 </div>
-
+            <ToastContainer />
         </>
     )
 }
