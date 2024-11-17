@@ -128,7 +128,7 @@ export const AlterarDadosAlunosProf = () => {
         ativo: ativou,
         funcao: funcao})
         
-        console.log(data)
+        //console.log(data)
   };
 
 
@@ -172,7 +172,7 @@ export const AlterarDadosAlunosProf = () => {
 
         let datanascimento = data.dt_nascimento + ":05.729Z"
 
-         if(data.ativo === true){
+         if(data.ativo){
           ativos = true;
          }else {
           ativos = false;
@@ -180,7 +180,7 @@ export const AlterarDadosAlunosProf = () => {
 
 
         try {
-          const responseAltAlunoProf = await api.put('/alunoProfessores/send',
+          await api.put('/alunoProfessores/send',
             { "id": data.id, 
               "nm_pessoa": data.nm_pessoa,
                "dt_nascimento": datanascimento, 
@@ -190,7 +190,13 @@ export const AlterarDadosAlunosProf = () => {
                 "ativo": ativos}
           ).then(() => {
             toast.success('Alterado com sucesso!')
-            
+            console.log( { "id": data.id, 
+              "nm_pessoa": data.nm_pessoa,
+               "dt_nascimento": datanascimento, 
+               "id_funcao": data.id_funcao,
+                "id_classe": data.id_classe,
+                "update_at": dataAtual,
+                "ativo": ativos})
             //setLoading(true)
             
           }).catch(() => {

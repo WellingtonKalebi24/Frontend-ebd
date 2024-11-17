@@ -18,6 +18,8 @@ import { AlterarDadosAlunosProf } from "./pages/alterar/alterar_dados_aluno_prof
 import { AlterarOferta } from "./pages/alterar/alterar_oferta";
 import { AlterarVisita } from "./pages/alterar/alterar_visita";
 import { AlterarRevista } from "./pages/alterar/alterar_revista";
+import { MenuUserSecretarioRel } from "./pages/menu_user_secretario";
+import { PresencaProfClass } from "./pages/presencaProfClass";
 
 const router = createBrowserRouter([
     {
@@ -95,8 +97,15 @@ const router = createBrowserRouter([
     {
         path: "/alterar_revista/:idescola",
         element: <AlterarRevista />
+    }, 
+    {
+        path: "/menu_user/secretario_rel",
+        element: <MenuUserSecretarioRel />
+    },
+    {
+        path: "/presenca/professores_secretario",
+        element: <PresencaProfClass />
     }
-    
 
 ]);
 
