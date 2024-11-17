@@ -172,11 +172,9 @@ export const AlterarDadosAlunosProf = () => {
 
         let datanascimento = data.dt_nascimento + ":05.729Z"
 
-         if(data.ativo){
-          ativos = true;
-         }else {
-          ativos = false;
-         }
+         
+
+ 
 
 
         try {
@@ -187,16 +185,16 @@ export const AlterarDadosAlunosProf = () => {
                "id_funcao": data.id_funcao,
                 "id_classe": data.id_classe,
                 "update_at": dataAtual,
-                "ativo": ativos}
+                "ativo": data.ativo === "false" ? false : true}
           ).then(() => {
             toast.success('Alterado com sucesso!')
-            console.log( { "id": data.id, 
-              "nm_pessoa": data.nm_pessoa,
-               "dt_nascimento": datanascimento, 
-               "id_funcao": data.id_funcao,
-                "id_classe": data.id_classe,
-                "update_at": dataAtual,
-                "ativo": ativos})
+            // console.log( { "id": data.id, 
+            //   "nm_pessoa": data.nm_pessoa,
+            //    "dt_nascimento": datanascimento, 
+            //    "id_funcao": data.id_funcao,
+            //     "id_classe": data.id_classe,
+            //     "update_at": dataAtual,
+            //     "ativo": ativos})
             //setLoading(true)
             
           }).catch(() => {

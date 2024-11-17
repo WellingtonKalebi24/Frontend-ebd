@@ -8,7 +8,7 @@ export function setupAPIClient(ctx){
     let cookies = parseCookies(ctx);
 
     const api = axios.create({
-        baseURL: 'http://localhost:3333',
+        baseURL: 'https://backendebd5-579nzqu5.b4a.run',
         headers: {
             Authorization: `Bearer ${cookies['@viteauth.token']}`
         }
